@@ -16,17 +16,19 @@ using Microsoft.Win32;
 
 namespace Ro32
 {
-    public partial class Form1 : Form
+    public partial class Ro32 : Form
     {
         static string GameMessageEntry = "[FLog::Output] [Ro32]";
         [DllImport("user32")]
         public static extern int MessageBox(IntPtr hWnd, String text, String caption, uint type);
         [DllImport("user32")]
         static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
+        [DllImport("user32")]
+        public static extern IntPtr SetWindowPos(IntPtr hWnd, int hWndInsertAfter, int x, int Y, int cx, int cy, int wFlags);
         [DllImport("kernel32.dll", SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         static extern bool AllocConsole();
-        public Form1()
+        public Ro32()
         {
             InitializeComponent();
         }
@@ -42,7 +44,7 @@ namespace Ro32
 
         }
 
-        static async Task LaunchR32(Label lbl1, PictureBox Logo)
+        static void LaunchR32(Label lbl1, PictureBox Logo)
         {
             string wpEngine = "";
             Process wp = new Process();
@@ -107,12 +109,13 @@ namespace Ro32
                     string? log = await sr.ReadLineAsync();
 
                     if (string.IsNullOrEmpty(log))
-                        logUpdatedEvent.WaitOne(delay);
+                        //logUpdatedEvent.WaitOne(delay);
+                        await Task.Delay(100);
                     else
                         ExamineLogEntry(log);
                 }
-
                 return;
+
             }
             void ExamineLogEntry(string entry)
             {
@@ -136,6 +139,11 @@ namespace Ro32
                                 Dialog? dialog;
                                 dialog = JsonSerializer.Deserialize<Dialog>(message.Data);
                                 int msgBox = MessageBox(windowHandle, dialog.Text, dialog.Title, 0);
+                                break;
+                            case "Window":
+                                Window? window;
+                                window = JsonSerializer.Deserialize<Window>(message.Data);
+                                Console.WriteLine("type: "+window.setType);
                                 break;
                             case "Minimize":
                                 Console.WriteLine("Attempting to minimize "+windowHandle);
@@ -215,13 +223,3 @@ namespace Ro32
         }
     }
 }
-
-
-/*
-
-
-WALLPAPER ERROR - System.IO.DirectoryNotFoundException: Could not find a part of the path 'C:\Users\bcher\AppData\Local\Roblox\Ro32\wallpaper.bmp'.
-   at System.IO.FileSystem.CopyFile(String sourceFullPath, String destFullPath, Boolean overwrite)
-   at Ro32.Form1.LaunchR32(Label lbl1, PictureBox Logo) in C:\Users\bcher\Documents\Ro32\Form1.cs:line 195
-
-*/

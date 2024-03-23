@@ -1,6 +1,6 @@
 ﻿namespace Ro32
 {
-    partial class Form1
+    partial class Ro32
     {
         /// <summary>
         ///  Required designer variable.
@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Ro32));
             Status = new Label();
             Logo = new PictureBox();
             ((System.ComponentModel.ISupportInitialize)Logo).BeginInit();
@@ -56,10 +57,11 @@
             Logo.Margin = new Padding(0);
             Logo.Name = "Logo";
             Logo.Size = new Size(72, 72);
+            Logo.SizeMode = PictureBoxSizeMode.StretchImage;
             Logo.TabIndex = 1;
             Logo.TabStop = false;
             // 
-            // Form1
+            // Ro32
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -67,8 +69,9 @@
             ClientSize = new Size(984, 461);
             Controls.Add(Logo);
             Controls.Add(Status);
-            Name = "Form1";
-            Text = "Form1";
+            Icon = (Icon)resources.GetObject("$this.Icon");
+            Name = "Ro32";
+            Text = "Ro32";
             Load += Form1_Load;
             ((System.ComponentModel.ISupportInitialize)Logo).EndInit();
             ResumeLayout(false);

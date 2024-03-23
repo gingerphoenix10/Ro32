@@ -8,7 +8,7 @@ namespace Ro32
         {
             ApplicationConfiguration.Initialize();
 
-            Application.Run(new Form1());
+            Application.Run(new Ro32());
         }
 
     }
