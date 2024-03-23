@@ -1,12 +1,13 @@
 <p align="center"><img src="https://github.com/gingerphoenix10/Ro32/raw/main/logo.png" width="75"/></p><h1 align="center">Ro32</h1>
-
+<div align="center">
+  
 [![Downloads](https://img.shields.io/github/downloads/gingerphoenix10/Ro32/total)](https://github.com/gingerphoenix10/Ro32/releases)
 [![Latest Version](https://img.shields.io/github/v/release/gingerphoenix10/Ro32)](https://github.com/gingerphoenix10/Ro32/releases)
 [![License](https://img.shields.io/github/license/gingerphoenix10/Ro32)](https://github.com/gingerphoenix10/Ro32/blob/main/LICENSE)
 [![Discord](https://img.shields.io/discord/1166129414547980459?logo=discord&logoColor=white&label=discord&color=3b6cff)](https://discord.gg/TZ8qW4HRsG)
 [![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/gingerphoenix10/Ro32/dotnet.yml)](https://github.com/gingerphoenix10/Ro32/actions)
 
-
+</div>
 Ro32 is an open-source project built for the Roblox client, Aiming to add more features for devs to interact with the user's device in ways such as opening new windows, moving around Roblox's window itself, and more features available and being worked on.
 <br><br>
 A lot of the code is used and modified from [Bloxstrap](https://github.com/pizzaboxer/Bloxstrap) by [Pizzaboxer](https://github.com/pizzaboxer), and therefore is also coded in the C# Programming language.
