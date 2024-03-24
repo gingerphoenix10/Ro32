@@ -52,14 +52,16 @@
             // Logo
             // 
             Logo.Anchor = AnchorStyles.None;
-            Logo.ImageLocation = "C:\\Users\\bcher\\Documents\\Ro32\\logo.png";
+            Logo.ImageLocation = "C:\\Users\\bcher\\Documents\\Ro32\\logoPadding.png";
+            Logo.InitialImage = null;
             Logo.Location = new Point(425, 200);
             Logo.Margin = new Padding(0);
             Logo.Name = "Logo";
-            Logo.Size = new Size(72, 72);
-            Logo.SizeMode = PictureBoxSizeMode.StretchImage;
+            Logo.Size = new Size(95, 95);
+            Logo.SizeMode = PictureBoxSizeMode.Zoom;
             Logo.TabIndex = 1;
             Logo.TabStop = false;
+            Logo.Click += Logo_Click;
             // 
             // Ro32
             // 

@@ -11,8 +11,8 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows;
-using static System.Net.Mime.MediaTypeNames;
 using Microsoft.Win32;
+using System.Drawing.Drawing2D;
 
 namespace Ro32
 {
@@ -35,7 +35,7 @@ namespace Ro32
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            //AllocConsole();
+            AllocConsole();
             LaunchR32(Status, Logo);
         }
 
@@ -130,7 +130,7 @@ namespace Ro32
 
                         Process rbxProc;
                         try { rbxProc = Process.GetProcessesByName("RobloxPlayerBeta")[0]; }
-                        catch { rbxProc = Process.GetProcessesByName("RobloxStudioBeta")[0];  }
+                        catch { rbxProc = Process.GetProcessesByName("RobloxStudioBeta")[0]; }
                         IntPtr windowHandle = rbxProc.MainWindowHandle;
                         Console.WriteLine(windowHandle);
                         switch (message.Command)
@@ -143,15 +143,17 @@ namespace Ro32
                             case "Window":
                                 Window? window;
                                 window = JsonSerializer.Deserialize<Window>(message.Data);
-                                Console.WriteLine("type: "+window.setType);
-                                break;
-                            case "Minimize":
-                                Console.WriteLine("Attempting to minimize "+windowHandle);
-                                ShowWindow(windowHandle, 6);
-                                break;
-                            case "Maximize":
-                                Console.WriteLine("Attempting to maximize " + windowHandle);
-                                ShowWindow(windowHandle, 3);
+                                switch (window.setType)
+                                {
+                                    case "Minimize":
+                                        Console.WriteLine("Attempting to minimize " + windowHandle);
+                                        ShowWindow(windowHandle, 6);
+                                        break;
+                                    case "Maximize":
+                                        Console.WriteLine("Attempting to maximize " + windowHandle);
+                                        ShowWindow(windowHandle, 3);
+                                        break;
+                                }
                                 break;
                             case "Wallpaper":
                                 WallpaperCommand? wcmd;
@@ -182,27 +184,38 @@ namespace Ro32
                                 break;
                         }
                     }
-                } catch (Exception e)
+                }
+                catch (Exception e)
                 {
                     Console.WriteLine("ERROR - " + e.ToString());
                 }
             }
-            int deg = 0;
+            float deg = 0;
             async Task SpinLogo()
             {
-                while (!Connected)
+                Image originalImage = Logo.Image;
+                DateTime prev = DateTime.Now;
+                while (true) //while (!Connected)
                 {
-                    deg++;
-                   // Console.WriteLine(Logo.Image == null);                                                                                 //TRUE???
-                    /*Bitmap bm = new Bitmap(Logo.Image.Width, Logo.Image.Height);
-                    Graphics g = Graphics.FromImage(bm);
-                    g.TranslateTransform(Logo.Height / 2, Logo.Width / 2);  //Put the rotation point in the center of the image
-                    g.ScaleTransform((float)1.0, (float)1.0);
-                    g.RotateTransform((float)90.0);
-                    //g.TranslateTransform(-xx, -yy);
-                    //g.DrawImage(Logo.Image, new PointF(0, 0));*/
+                    await Task.Delay(10);
+                    if (Logo.Image != null)
+                    {
+                        if (originalImage == null) originalImage = Logo.Image;
+                        deg += (DateTime.Now.Ticks - prev.Ticks) / 1000000f;
+                        Bitmap bmp = new Bitmap(originalImage.Width, originalImage.Height);
+                        Graphics gfx = Graphics.FromImage(bmp);
+                        gfx.TranslateTransform((float)bmp.Width / 2, (float)bmp.Height / 2);
+                        gfx.RotateTransform(deg);
+                        gfx.TranslateTransform(-(float)bmp.Width / 2, -(float)bmp.Height / 2);
+                        gfx.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                        gfx.DrawImage(originalImage, new Point(0, 0));
+                        gfx.Dispose();
+                        Logo.Image = bmp;
+                    }
+                    prev = DateTime.Now;
                 }
             }
+            SpinLogo();
             RegistryKey rkWallpaper = Registry.CurrentUser.OpenSubKey("Control Panel\\Desktop", false);
             string WallpaperPath = rkWallpaper.GetValue("WallPaper").ToString();
             rkWallpaper.Close();
@@ -220,6 +233,10 @@ namespace Ro32
             }
             Console.WriteLine(wpEngine);
             StartWatcher();
+        }
+        private void Logo_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
