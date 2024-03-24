@@ -31,22 +31,22 @@ local text = "Window Text!"
 Ro32.DialogBox(title, text)
 ```
 
-### `Ro32.Minimize()`
+### `Ro32.Window.Minimize()`
 Minimizes the Roblox window.<br><br>
 Example:
 ```Lua
 local Ro32 = require(game.ReplicatedStorage.Ro32)
-Ro32.Minimize()
+Ro32.Window.Minimize()
 ```
 Nothing else to it.
-### `Ro32.Maximize()`
-Simmilarly to Ro32.Minimize, Ro32.Maximize will maximize the Roblox window if minimized or floating.<br><br>
+### `Ro32.Window.Maximize()`
+Simmilarly to Ro32.Window.Minimize, Ro32.Window.Maximize will maximize the Roblox window if minimized or floating.<br><br>
 Example:
 ```Lua
 local Ro32 = require(game.ReplicatedStorage.Ro32)
-Ro32.Maximize()
+Ro32.Window.Maximize()
 ```
-### `Ro32.Wallpaper.set(URL: string, FitType: string)`
+### `Ro32.Wallpaper.Set(URL: string, FitType: string)`
 Will change the user's Background wallpaper to the inputted image from a URL.<br><br> FitType can be set to:<br>`Center` - Centers the image on the user's desktop, and keeps aspect ratio<br>`Fit` - Will rename in an update. Tiles the image for all displays.<br>`Stretch` (or any value other than Center or Fit) - Stretches the image to fit the user's desktop.<br><br>
 (Also closes Wallpaper Engine if running.)<br><br>
 Example:
@@ -54,13 +54,13 @@ Example:
 local Ro32 = require(game.ReplicatedStorage.Ro32)
 local ImageURL = "https://github.com/gingerphoenix10/Ro32/raw/main/logo.png"
 local FitType = "Stretch"
-Ro32.Wallpaper.set(ImageURL, FitType)
+Ro32.Wallpaper.Set(ImageURL, FitType)
 ```
-### `Ro32.Wallpaper.reset()`
-Reset's the user's wallpaper to the image it was set to before running Ro32.Wallpaper.set. Reboots Wallpaper Engine if it was running before Ro32.Wallpaper.set.
+### `Ro32.Wallpaper.Reset()`
+Reset's the user's wallpaper to the image it was set to before running Ro32.Wallpaper.Set. Reboots Wallpaper Engine if it was running before Ro32.Wallpaper.Set.
 ```Lua
 local Ro32 = require(game.ReplicatedStorage.Ro32)
-Ro32.Wallpaper.reset()
+Ro32.Wallpaper.Reset()
 ```
 # Building
 You will require [Visual Studio](https://visualstudio.microsoft.com/downloads/), and the .NET desktop development workload (download with Visual Studio installer). I don't think there are any other requirements, but don't take my word for it.
