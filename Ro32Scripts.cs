@@ -37,7 +37,7 @@ namespace Ro32
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            AllocConsole();
+            //AllocConsole();
             LaunchR32(Status, Logo);
         }
 
