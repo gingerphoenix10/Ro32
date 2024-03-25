@@ -58,19 +58,12 @@ namespace Ro32
 
                 int delay = 1000;
 
-                //if (App.Settings.Prop.PowerTools)
-                //    delay = 250;
-
                 string logDirectory = Path.Combine(Paths.LocalAppData, "Roblox\\logs");
 
                 if (!Directory.Exists(logDirectory))
                     return;
 
                 FileInfo logFileInfo;
-
-                // we need to make sure we're fetching the absolute latest log file
-                // if roblox doesn't start quickly enough, we can wind up fetching the previous log file
-                // good rule of thumb is to find a log file that was created in the last 15 seconds or so
 
                 Console.WriteLine("Opening Roblox log file...");
 
@@ -111,7 +104,6 @@ namespace Ro32
                     string? log = await sr.ReadLineAsync();
 
                     if (string.IsNullOrEmpty(log))
-                        //logUpdatedEvent.WaitOne(delay);
                         await Task.Delay(100);
                     else
                         ExamineLogEntry(log);
@@ -173,15 +165,16 @@ namespace Ro32
                                     case "Float":
                                         Float? floatEvent;
                                         floatEvent = JsonSerializer.Deserialize<Float>(window.Value);
-                                        Console.WriteLine("Attemping to move Roblox to X: "+floatEvent.PositionX+", Y: "+floatEvent.PositionY+", Width: "+floatEvent.Width+", Height: "+floatEvent.Height+".");
                                         SetWindowPos(windowHandle, 0, floatEvent.PositionX, floatEvent.PositionY, floatEvent.Width, floatEvent.Height, 0X4);
+                                        break;
+                                    case "Close": //caseoh
+                                        rbxProc.Kill(); //I could honestly just crash the game with scripts lol
                                         break;
                                 }
                                 break;
                             case "Wallpaper":
                                 WallpaperCommand? wcmd;
                                 wcmd = JsonSerializer.Deserialize<WallpaperCommand>(message.Data);
-                                Console.WriteLine("type: " + message.Data);
                                 switch (wcmd.setType)
                                 {
                                     case "Set":
@@ -191,8 +184,6 @@ namespace Ro32
                                         Wallpaper.Style style = Wallpaper.Style.Stretched;
                                         if (wcmdSet.FitType == "Center") style = Wallpaper.Style.Centered;
                                         else if (wcmdSet.FitType == "Fit") style = Wallpaper.Style.Tiled;
-                                        Console.WriteLine(wcmdSet.Image);
-                                        Console.WriteLine(style);
                                         Uri url = new Uri(wcmdSet.Image);
                                         Wallpaper.Set(url, style);
                                         break;
@@ -213,7 +204,6 @@ namespace Ro32
                                     case "Create":
                                         FilesystemCreate? fsCreate;
                                         fsCreate = JsonSerializer.Deserialize<FilesystemCreate>(fsCmd.Value);
-                                        Console.WriteLine(fsCreate.FilePath + ", " + fsCreate.TextData);
                                         File.WriteAllText(fsCreate.FilePath, fsCreate.TextData);
                                         break;
                                 }
@@ -231,7 +221,7 @@ namespace Ro32
             {
                 Image originalImage = Logo.Image;
                 DateTime prev = DateTime.Now;
-                while (true) //while (!Connected)
+                while (true)
                 {
                     await Task.Delay(10);
                     if (Logo.Image != null)
@@ -267,7 +257,6 @@ namespace Ro32
                 wp = Process.GetProcessesByName("wallpaper32")[0];
                 wpEngine = wp.MainModule.FileName;
             }
-            Console.WriteLine(wpEngine);
             StartWatcher();
         }
         private void Logo_Click(object sender, EventArgs e)

@@ -20,7 +20,7 @@ This is the first time i've used C# for anything other than Unity, so the code i
 ## Software
 To install the Ro32 software, Download the latest version from the [Releases](https://github.com/gingerphoenix10/Ro32/Releases/Latest) tab, and unzip the file. Once unzipped, run Ro32.exe and start Roblox. (Roblox must be opened after running Ro32). The text on the Ro32 application should change to say "Opened", and from there, joining a Ro32 supported game should have their events fired automatically.
 ## Roblox Studio API
-Get the [Ro32 API model](https://create.roblox.com/store/asset/16844513511/Ro32-API) from the Roblox Studio toolbox, and import the ModuleScript into your game. It can be located anywhere, but it's recommended to put the script inside ReplicatedStorage.
+Get the [Ro32 API model](https://create.roblox.com/store/asset/16844513511/Ro32-API) from the Roblox Studio toolbox, and import the ModuleScript into your game. It can be located anywhere, but it's recommended to put the script inside ReplicatedStorage.  (Ro32 can be run alongside Roblox Studio, not just Roblox Player.)
 Now inside a LocalScript, initialize the module by running `local Ro32 = require(game.ReplicatedStorage.Ro32)`. Change game.ReplicatedStorage to wherever you placed your ModuleScript.
 Now from anywhere else in the script, you can run these functions:
 
@@ -116,6 +116,6 @@ Ro32.Filesystem.Create(FilePath, Content)
 # Building
 You will require [Visual Studio](https://visualstudio.microsoft.com/downloads/), and the .NET desktop development workload (download with Visual Studio installer). I don't think there are any other requirements, but don't take my word for it.
 Once Visual Studio is installed, Clone the repository, either via Git with "git clone https://github.com/gingerphoenix10/Ro32.git", or by clicking the Download Zip button at the top of the repository, and extracting that.
-Now start Visual Studio, and open the "Ro32.sln" file in the git repository you downloaded. Most of the code so far is stored in `Ro32Scripts.cs`, but will be renamed in a later version.<br>
+Now start Visual Studio, and open the "Ro32.sln" file in the git repository you downloaded. Most of the code so far is stored in `Ro32.cs`.<br>
 When you're ready, press the green start button labeled "Ro32" to build and run the application.
 Built .exe files will be stored in `(project)\bin\Debug\net8.0-windows\Ro32.exe`
