@@ -74,7 +74,7 @@
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "Ro32";
             Text = "Ro32";
-            Load += Form1_Load;
+            Load += Ro32_Load;
             ((System.ComponentModel.ISupportInitialize)Logo).EndInit();
             ResumeLayout(false);
         }

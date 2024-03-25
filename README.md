@@ -116,6 +116,6 @@ Ro32.Filesystem.Create(FilePath, Content)
 # Building
 You will require [Visual Studio](https://visualstudio.microsoft.com/downloads/), and the .NET desktop development workload (download with Visual Studio installer). I don't think there are any other requirements, but don't take my word for it.
 Once Visual Studio is installed, Clone the repository, either via Git with "git clone https://github.com/gingerphoenix10/Ro32.git", or by clicking the Download Zip button at the top of the repository, and extracting that.
-Now start Visual Studio, and open the "Ro32.sln" file in the git repository you downloaded. Most of the code so far is stored in `Form1.cs`, but will be renamed in a later version.<br>
+Now start Visual Studio, and open the "Ro32.sln" file in the git repository you downloaded. Most of the code so far is stored in `Ro32Scripts.cs`, but will be renamed in a later version.<br>
 When you're ready, press the green start button labeled "Ro32" to build and run the application.
 Built .exe files will be stored in `(project)\bin\Debug\net8.0-windows\Ro32.exe`

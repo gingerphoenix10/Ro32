@@ -35,7 +35,7 @@ namespace Ro32
             InitializeComponent();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void Ro32_Load(object sender, EventArgs e)
         {
             //AllocConsole();
             LaunchR32(Status, Logo);
