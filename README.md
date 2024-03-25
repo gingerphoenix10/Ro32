@@ -20,7 +20,7 @@ This is the first time i've used C# for anything other than Unity, so the code i
 ## Software
 To install the Ro32 software, Download the latest version from the [Releases](https://github.com/gingerphoenix10/Ro32/Releases/Latest) tab, and unzip the file. Once unzipped, run Ro32.exe and start Roblox. (Roblox must be opened after running Ro32). The text on the Ro32 application should change to say "Opened", and from there, joining a Ro32 supported game should have their events fired automatically.
 ## Roblox Studio API
-Get the [Ro32 API model](https://create.roblox.com/store/asset/16844513511/Ro32-API) from the Roblox Studio toolbox, and import the ModuleScript into your game. It can be located anywhere, but it's recommended to put the script inside ReplicatedStorage.  (Ro32 can be run alongside Roblox Studio, not just Roblox Player.)
+Get the [Ro32 API model](https://create.roblox.com/store/asset/16844513511/Ro32-API) from the Roblox Studio toolbox, and import the ModuleScript into your game. It can be located anywhere, but it's recommended to put the script inside ReplicatedStorage.  (Ro32 can be run alongside Roblox Studio, not just Roblox Player).
 Now inside a LocalScript, initialize the module by running `local Ro32 = require(game.ReplicatedStorage.Ro32)`. Change game.ReplicatedStorage to wherever you placed your ModuleScript.
 Now from anywhere else in the script, you can run these functions:
 
