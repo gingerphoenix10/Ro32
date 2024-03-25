@@ -10,7 +10,9 @@
 </div>
 Ro32 is an open-source project built for the Roblox client, Aiming to add more features for devs to interact with the user's device in ways such as opening new windows, moving around Roblox's window itself, and more features available and being worked on.
 <br><br>
-A lot of the code is used and modified from [Bloxstrap](https://github.com/pizzaboxer/Bloxstrap) by [Pizzaboxer](https://github.com/pizzaboxer), and therefore is also coded in the C# Programming language.
+A lot of the code is used and modified from
+
+[Bloxstrap](https://github.com/pizzaboxer/Bloxstrap) by [Pizzaboxer](https://github.com/pizzaboxer), and therefore is also coded in the C# Programming language.
 This is the first time i've used C# for anything other than Unity, so the code isn't very good, and it could most likely be improved in hundreds of different ways. If you want to help the development of Ro32 however, You can submit a pull request, and it'll be decided if it will be added (probably)
 
 # Installation & Usage
