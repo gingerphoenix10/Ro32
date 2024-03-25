@@ -1,4 +1,4 @@
-﻿using System.Text.Json.Serialization;
+using System.Text.Json.Serialization;
 using System.Text.Json;
 
 namespace Ro32;
@@ -22,4 +22,12 @@ public class Float
     public int Width { get; set; }
     [JsonPropertyName("Height")]
     public int Height { get; set; }
+}
+
+public class Rename
+{
+    [JsonPropertyName("setType")]
+    public string SetType { get; set; }
+    [JsonPropertyName("Name")]
+    public string Name { get; set; }
 }

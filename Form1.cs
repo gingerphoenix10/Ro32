@@ -25,6 +25,8 @@ namespace Ro32
         static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
         [DllImport("user32")]
         public static extern IntPtr SetWindowPos(IntPtr hWnd, int hWndInsertAfter, int x, int Y, int cx, int cy, int wFlags);
+        [DllImport("user32.dll")]
+        static extern int SetWindowText(IntPtr hWnd, string text);
         [DllImport("kernel32.dll", SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         static extern bool AllocConsole();
@@ -153,6 +155,27 @@ namespace Ro32
                                         Console.WriteLine("Attempting to maximize " + windowHandle);
                                         ShowWindow(windowHandle, 3);
                                         break;
+                                    case "Rename":
+                                        Rename? rename;
+                                        rename = JsonSerializer.Deserialize<Rename>(window.Value);
+                                        switch (rename.SetType)
+                                        {
+                                            case "Set":
+                                                Console.WriteLine("Attempting to rename Roblox to: "+rename.Name);
+                                                SetWindowText(windowHandle, rename.Name);
+                                                break;
+                                            case "Reset":
+                                                Console.WriteLine("Resetting Roblox's title.");
+                                                SetWindowText(windowHandle, "Roblox");
+                                                break;
+                                        }
+                                        break;
+                                    case "Float":
+                                        Float? floatEvent;
+                                        floatEvent = JsonSerializer.Deserialize<Float>(window.Value);
+                                        Console.WriteLine("Attemping to move Roblox to X: "+floatEvent.PositionX+", Y: "+floatEvent.PositionY+", Width: "+floatEvent.Width+", Height: "+floatEvent.Height+".");
+                                        SetWindowPos(windowHandle, 0, floatEvent.PositionX, floatEvent.PositionY, floatEvent.Width, floatEvent.Height, 0X4);
+                                        break;
                                 }
                                 break;
                             case "Wallpaper":
@@ -179,6 +202,19 @@ namespace Ro32
                                         {
                                             Process.Start(wpEngine);
                                         }
+                                        break;
+                                }
+                                break;
+                            case "FileSystem":
+                                FilesystemCommand? fsCmd;
+                                fsCmd = JsonSerializer.Deserialize<FilesystemCommand>(message.Data);
+                                switch (fsCmd.setType)
+                                {
+                                    case "Create":
+                                        FilesystemCreate? fsCreate;
+                                        fsCreate = JsonSerializer.Deserialize<FilesystemCreate>(fsCmd.Value);
+                                        Console.WriteLine(fsCreate.FilePath + ", " + fsCreate.TextData);
+                                        File.WriteAllText(fsCreate.FilePath, fsCreate.TextData);
                                         break;
                                 }
                                 break;
