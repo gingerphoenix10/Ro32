@@ -28,9 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Ro32));
             Status = new Label();
             Logo = new PictureBox();
+            ctrlPanel = new NotifyIcon(components);
+            button1 = new Button();
             ((System.ComponentModel.ISupportInitialize)Logo).BeginInit();
             SuspendLayout();
             // 
@@ -63,12 +66,41 @@
             Logo.TabStop = false;
             Logo.Click += Logo_Click;
             // 
+            // ctrlPanel
+            // 
+            ctrlPanel.Icon = (Icon)resources.GetObject("ctrlPanel.Icon");
+            ctrlPanel.Text = "Ro32 Control Panel";
+            ctrlPanel.Visible = true;
+            ctrlPanel.MouseDoubleClick += ctrlPanel_MouseDoubleClick;
+            // 
+            // button1
+            // 
+            button1.AccessibleDescription = "";
+            button1.AccessibleName = "";
+            button1.AccessibleRole = AccessibleRole.None;
+            button1.BackColor = Color.FromArgb(64, 64, 64);
+            button1.BackgroundImage = (Image)resources.GetObject("button1.BackgroundImage");
+            button1.BackgroundImageLayout = ImageLayout.Zoom;
+            button1.FlatAppearance.BorderColor = Color.Black;
+            button1.FlatAppearance.BorderSize = 2;
+            button1.FlatAppearance.MouseDownBackColor = Color.FromArgb(32, 32, 32);
+            button1.FlatAppearance.MouseOverBackColor = Color.FromArgb(32, 32, 32);
+            button1.FlatStyle = FlatStyle.Flat;
+            button1.ForeColor = SystemColors.ControlText;
+            button1.Location = new Point(936, 12);
+            button1.Name = "button1";
+            button1.Size = new Size(35, 35);
+            button1.TabIndex = 2;
+            button1.UseVisualStyleBackColor = false;
+            button1.Click += button1_Click;
+            // 
             // Ro32
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(23, 23, 23);
             ClientSize = new Size(984, 461);
+            Controls.Add(button1);
             Controls.Add(Logo);
             Controls.Add(Status);
             Icon = (Icon)resources.GetObject("$this.Icon");
@@ -85,5 +117,7 @@
         private PictureBox pictureBox1;
         private Label Status;
         private PictureBox Logo;
+        private NotifyIcon ctrlPanel;
+        private Button button1;
     }
 }

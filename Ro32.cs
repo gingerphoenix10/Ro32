@@ -13,6 +13,7 @@ using System.Windows.Forms;
 using System.Windows;
 using Microsoft.Win32;
 using System.Drawing.Drawing2D;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 
 namespace Ro32
 {
@@ -30,15 +31,33 @@ namespace Ro32
         [DllImport("kernel32.dll", SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         static extern bool AllocConsole();
-        public Ro32()
+        [System.ComponentModel.Browsable(false)]
+        public IntPtr Handle { get; }
+        protected override void OnLoad(EventArgs e)
         {
+            Visible = true; // Hide form window.
+            ShowInTaskbar = true; // Remove from taskbar.
+            Opacity = 1;
+
+            base.OnLoad(e);
+        }
+        string[] args;
+        public Ro32(string[] arguments)
+        {
+            args = arguments;
             InitializeComponent();
         }
-
+        private void ToTray()
+        {
+            this.Visible = false;
+            this.ShowInTaskbar = false;
+            this.Opacity = 0;
+        }
         private void Ro32_Load(object sender, EventArgs e)
         {
-            //AllocConsole();
-            LaunchR32(Status, Logo);
+            if (args.Contains("-Console")) AllocConsole();
+            if (args.Contains("-Minimized")) ToTray();
+            //LaunchR32(Status, Logo);
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -153,7 +172,7 @@ namespace Ro32
                                         switch (rename.SetType)
                                         {
                                             case "Set":
-                                                Console.WriteLine("Attempting to rename Roblox to: "+rename.Name);
+                                                Console.WriteLine("Attempting to rename Roblox to: " + rename.Name);
                                                 SetWindowText(windowHandle, rename.Name);
                                                 break;
                                             case "Reset":
@@ -262,6 +281,18 @@ namespace Ro32
         private void Logo_Click(object sender, EventArgs e)
         {
 
+        }
+        private void ctrlPanel_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            this.Visible = true;
+            this.ShowInTaskbar = true;
+            this.Opacity = 1;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            ToTray();
+            int msgBox = MessageBox(Handle, "Ro32 has been minimized to the System tray.", "Minimized", 0);
         }
     }
 }
