@@ -59,7 +59,7 @@ namespace Ro32
             args = (from s in args select s.ToLower()).ToList();
             if (args.Contains("-console")) AllocConsole();
             if (args.Contains("-minimized") || args.Contains("-minimize")) ToTray();
-            //LaunchR32(Status, Logo);
+            LaunchR32(Status, Logo);
         }
 
         private void label1_Click(object sender, EventArgs e)
