@@ -14,6 +14,7 @@ using System.Windows;
 using Microsoft.Win32;
 using System.Drawing.Drawing2D;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
+using System.Collections;
 
 namespace Ro32
 {
@@ -41,10 +42,10 @@ namespace Ro32
 
             base.OnLoad(e);
         }
-        string[] args;
+        List<string> args;
         public Ro32(string[] arguments)
         {
-            args = arguments;
+            args = arguments.ToList();
             InitializeComponent();
         }
         private void ToTray()
@@ -55,8 +56,9 @@ namespace Ro32
         }
         private void Ro32_Load(object sender, EventArgs e)
         {
-            if (args.Contains("-Console")) AllocConsole();
-            if (args.Contains("-Minimized")) ToTray();
+            args = (from s in args select s.ToLower()).ToList();
+            if (args.Contains("-console")) AllocConsole();
+            if (args.Contains("-minimized") || args.Contains("-minimize")) ToTray();
             //LaunchR32(Status, Logo);
         }
 
