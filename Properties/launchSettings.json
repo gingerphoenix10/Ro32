@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Ro32": {
+      "commandName": "Project",
+      "commandLineArgs": "-Console -MemoryPatch"
+    }
+  }
+}

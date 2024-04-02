@@ -42,7 +42,7 @@ namespace Ro32
 
             base.OnLoad(e);
         }
-        List<string> args;
+        static List<string> args;
         public Ro32(string[] arguments)
         {
             args = arguments.ToList();
@@ -101,6 +101,7 @@ namespace Ro32
 
                     Console.WriteLine($"Could not find recent enough log file, waiting... (newest is {logFileInfo.Name})");
                     await Task.Delay(1000);
+                    if (args.Contains("-memorypatch")) GC.Collect();
                 }
 
                 LogLocation = logFileInfo.FullName;
@@ -205,6 +206,14 @@ namespace Ro32
                                         Wallpaper.Style style = Wallpaper.Style.Stretched;
                                         if (wcmdSet.FitType == "Center") style = Wallpaper.Style.Centered;
                                         else if (wcmdSet.FitType == "Fit") style = Wallpaper.Style.Tiled;
+                                        if (long.TryParse(wcmdSet.Image, out _))
+                                        {
+                                            wcmdSet.Image = "https://assetdelivery.roblox.com/v1/asset/?id="+wcmdSet.Image;
+                                        }
+                                        if (wcmdSet.Image.StartsWith("rbxassetid://"))
+                                        {
+                                            wcmdSet.Image = "https://assetdelivery.roblox.com/v1/asset/?id=" + wcmdSet.Image.Split("rbxassetid://")[1];
+                                        }
                                         Uri url = new Uri(wcmdSet.Image);
                                         Wallpaper.Set(url, style);
                                         break;

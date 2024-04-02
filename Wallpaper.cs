@@ -1,4 +1,5 @@
 ﻿using Microsoft.Win32;
+using System.Net;
 using System.Runtime.InteropServices;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -24,12 +25,14 @@ public sealed class Wallpaper
 
     public static void Set(Uri uri, Style style)
     {
-        System.IO.Stream s = new System.Net.WebClient().OpenRead(uri.ToString());
-
-        System.Drawing.Image img = System.Drawing.Image.FromStream(s);
+        WebClient wc = new WebClient();
+        byte[] bytes = wc.DownloadData(uri);
+        MemoryStream ms = new MemoryStream(bytes);
+        System.Drawing.Image img = System.Drawing.Image.FromStream(ms, false, false);
         string tempPath = Path.Combine(Path.GetTempPath(), "wallpaper.bmp");
+        if (System.IO.File.Exists(tempPath)) System.IO.File.Delete(tempPath);
         img.Save(tempPath, System.Drawing.Imaging.ImageFormat.Bmp);
-
+        img.Dispose();
         RegistryKey key = Registry.CurrentUser.OpenSubKey(@"Control Panel\Desktop", true);
         if (style == Style.Stretched)
         {
